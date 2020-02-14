@@ -1,11 +1,10 @@
 const express = require('express');
 const app = express();
-const path = require('path');
 
-app.use(express.static('feature-dating-app'));
+app.use(express.static('public'));
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
+app.get('/', (req, res) => {
+    res.send('Mijn dating server!');
 });
 
 app.use(function(req, res){
@@ -13,4 +12,4 @@ app.use(function(req, res){
     res.status(404)
     res.send('404 Not Found')
 })
-app.listen(3000, () => console.log('App listening on port 3000!'));
+app.listen(3000, () => console.log('App listening on port 3000!'));x

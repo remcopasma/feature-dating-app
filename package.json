@@ -18,6 +18,8 @@
   "homepage": "https://github.com/remcopasma/feature-dating-app#readme",
   "dependencies": {
     "camelcase": "^5.3.1",
-    "express": "^4.17.1"
+    "ejs": "^3.0.1",
+    "express": "^4.17.1",
+    "pug": "^2.0.4"
   }
 }

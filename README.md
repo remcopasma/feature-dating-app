@@ -4,4 +4,4 @@ Wanneer iemand een date zoekt op basis van gelijke interesse in verschillende sp
 
 ## Licence
 
-MIT Licence
+MIT LICENCE

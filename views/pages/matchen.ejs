@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+   <%- include('../partials/head') %>
+</head>
+<body>
+    <header>
+		 <%- include('../partials/header') %>
+    </header>
+<main>
+	<form action="/profielen">
+        <p>Geef iedere sport een cijfer!</p>
+        <label>
+          <span>Voetbal: </span>
+          <input type="number" placeholder="6" name="rating" min="1" max="10">
+        </label>      
+        <label>
+            <span>Vollebal: </span>
+            <input type="number" placeholder="6" name="rating" min="1" max="10">
+        </label> 
+        <label>
+            <span>Basketball: </span>
+            <input type="number" placeholder="6" name="rating" min="1" max="10">
+        </label> 
+        <label>
+            <span>Korfbal: </span>
+            <input type="number" placeholder="6" name="rating" min="1" max="10">
+        </label> 
+        <label>
+            <span>Zwemmen: </span>
+            <input type="number" placeholder="6" name="rating" min="1" max="10">
+        </label> 
+        <label>
+            <span>Schaatsen: </span>
+            <input type="number" placeholder="6" name="rating" min="1" max="10">
+        </label> 
+        <label>
+            <span>Hanbal: </span>
+            <input type="number" placeholder="6" name="rating" min="1" max="10">
+        </label> 
+        <input type="submit"></button>
+      </form>
+</main>
+</body>
+</html>

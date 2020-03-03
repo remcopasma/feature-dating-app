@@ -8,38 +8,49 @@
 		 <%- include('../partials/header') %>
     </header>
 <main>
-	<form action="/profielen">
+	<form action='/' method='post'>
         <p>Geef iedere sport een cijfer!</p>
         <label>
-          <span>Voetbal: </span>
-          <input type="number" placeholder="6" name="rating" min="1" max="10">
+            <span>Welke sport vind je leuk: </span>
+            <label class="sports">Voetbal
+                <input type="checkbox" name=sport value=voetbal>
+                <span class="checkmark"></span>
+            </label>
+            <label class="sports">Tennis
+                <input type="checkbox" name=sport value=tennis>
+                <span class="checkmark"></span>
+            </label>
+            <label class="sports">Hockey
+                <input type="checkbox" name=sport value=hockey>
+                <span class="checkmark"></span>
+            </label>
+            <label class="sports">Zwemmen
+                <input type="checkbox" name=sport value=zwemmen>
+                <span class="checkmark"></span>
+            </label>
+            <label class="sports">Fitness
+                <input type="checkbox" name=sport value=fitness>
+                <span class="checkmark"></span>
+            </label>
+            <label class="sports">Basketball
+                <input type="checkbox" name=sport value=fitness>
+                <span class="checkmark"></span>
+            </label>
+            <label class="sports">Volleybal
+                <input type="checkbox" name=sport value=fitness>
+                <span class="checkmark"></span>
+            </label>
         </label>      
         <label>
-            <span>Vollebal: </span>
-            <input type="number" placeholder="6" name="rating" min="1" max="10">
-        </label> 
+            <span>Anders: </span>
+            <input type="text" name="anders">
+        </label>   
         <label>
-            <span>Basketball: </span>
-            <input type="number" placeholder="6" name="rating" min="1" max="10">
-        </label> 
-        <label>
-            <span>Korfbal: </span>
-            <input type="number" placeholder="6" name="rating" min="1" max="10">
-        </label> 
-        <label>
-            <span>Zwemmen: </span>
-            <input type="number" placeholder="6" name="rating" min="1" max="10">
-        </label> 
-        <label>
-            <span>Schaatsen: </span>
-            <input type="number" placeholder="6" name="rating" min="1" max="10">
-        </label> 
-        <label>
-            <span>Hanbal: </span>
-            <input type="number" placeholder="6" name="rating" min="1" max="10">
+            <span>Aantal keer sporten in de week: </span>
+            <input type="number" placeholder="6" name="amount" min="1" max="10">
         </label> 
         <input type="submit"></button>
-      </form>
+    </form>
 </main>
 </body>
 </html>

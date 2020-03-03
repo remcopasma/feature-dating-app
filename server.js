@@ -38,6 +38,7 @@ function matchen(req, res) {
     res.render('pages/profielen', {data: data})
 }
 
+const test = "test";
 // // Route home
 // app.get('/home', function(req, res) {
 //     res.sendFile(path.join(__dirname+'/public/index.html'));

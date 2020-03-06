@@ -2,64 +2,73 @@ body {
   font-family: nexa;
   color: white;
   margin: 0 auto;
-  max-width: 36em;
   height: 100vh;
-  background-color:#363535;
+  background-color: #363535;
 }
+
 body.login{
   background-image:url("../images/bg.jpg");
   background-repeat: no-repeat;
   background-size: cover;
 }
-  
+
 header {
   display: flex;
 }
-  
+
 .material-icons{
   font-size:2em !important;
   padding:0.2em 0.6em !important; 
 }
-  header nav{
-    display:flex;
-    border-bottom:1px solid #fff;
-    width:100%;
-    box-shadow: 10px 10px 5px #202020;
-  }
-    header nav ul{
-      display: flex;
-      list-style-type:none;
-      padding:0;
-    }
-      header nav ul li a{
-        text-decoration:none;
-        color: #fff;
-        font-size:1.5em;
-        padding: 1em;
-      }
-        header nav ul li a:hover{
-          color:#2800a0;
-        }
 
-        .active {
-          border-bottom:1px solid #fff;
-          padding-bottom: 0px;
-        }
-          main{
-            height: 90vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-          }
-          
-          main h1 {
-            text-shadow: 3px 2px #363535;
-            padding-bottom:1.5em;
-          }
+header nav {
+  background-color: #363535;
+  z-index: 1;
+  position: fixed;
+  display:flex;
+  border-bottom:1px solid #fff;
+  width: 100%
+}
+  header nav ul {
+    display: flex;
+    list-style-type:none;
+    padding:0;
+  }
+    header nav ul li a {
+      text-decoration:none;
+      color: #fff;
+      font-size:1.5em;
+      padding: 1em;
+    }
+      header nav ul li a:hover{
+        color:#2800a0;
+      }
+      .active {
+        border-bottom:1px solid #fff;
+        padding-bottom: 0px;
+      }
+
+main {
+  margin: auto;
+  max-width: 1200px;
+  margin-top: 140px;
+}
+
+main.inloggen {
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.inloggen h1 {
+  text-shadow: 3px 2px #363535;
+  padding-bottom:1.5em;
+}
 
 a.btn-inloggen {
   background-color:#5FDFF6;
@@ -70,7 +79,7 @@ a.btn-inloggen {
   text-align: center;
   margin-bottom:0.5em;
 }
-      
+    
 a.btn-registreren {
   border:1px solid #fff;
   font-size: 1.5em;
@@ -80,41 +89,87 @@ a.btn-registreren {
   text-align: center;
   margin-bottom:0.5em;
 }       
-  section{
+section {
   display:grid;
   grid-template-columns: 1fr 1fr 1fr;
-  
-  }			
-  
-  @media screen and (max-width: 50em) {
-  section{grid-template-columns: 1fr 1fr;}
-  }	
-  
-  @media screen and (max-width: 35em) {
-  section{grid-template-columns: 1fr;}
-  header img {width:5em;}
-  header nav ul li a{
-      text-decoration:none;
-      color: #fff;
-      font-size:1.4em;
-      padding: 0.5em;
-      }
-  }	
-  
+}			
 
-  
-  form {
-    color:#fff;
-    border: .09rem solid;
-    border-radius: .75em;
-    font-size: 1.2em;
-    max-width: 50em;
-    margin: 0.3em;
-    padding: 1em;
-    box-shadow: 10px 10px 5px #363535;
-  }
-  
-  form input[type="submit"] {
+span {
+  font-size:18px;
+}
+
+/* Matchen checkboxes */
+.sports {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  padding-top:5px;
+}
+
+/* Hide the browser's default checkbox */
+.sports input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 25px;
+  width: 25px;
+  background-color: #fff;
+}
+
+/* When the checkbox is checked, add a blue background */
+.sports input:checked ~ .checkmark {
+  background-color: #5FDFF6;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.sports input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.sports .checkmark:after {
+  left: 9px;
+  top: 5px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+/* Forms */
+form {
+  color:#fff;
+  border: .09rem solid;
+  border-radius: .75em;
+  font-size: 1.2em;
+  margin: 1em;
+  padding: 1em;
+  box-shadow: 10px 10px 5px #363535;
+}
+
+form input[type="submit"] {
   margin: 0;
   padding: .4375em 1.5em .5625em;
   position: relative;
@@ -131,72 +186,57 @@ a.btn-registreren {
   box-shadow: inset 0 -.1875em .0625em #363535;
   color: #fff;
   margin-top:1em;
-  }
+}
 
-  
-  form input{
-  width: 100%;
-  margin: 0;
-  display: block;
-  padding:5px;
-  border: .0625rem solid #91a3b7;
-  font-size: 1rem;
-  border-radius: .5rem;
-  }
+form p {
+  font-size:22px;
+  text-shadow: 3px 2px #000;
+}
 
-  form label {
-    display:block;
-    margin-bottom:5px;
-  }
+form input{
+width: 100%;
+margin: 0;
+display: block;
+padding:5px;
+border: .0625rem solid #91a3b7;
+font-size: 1rem;
+border-radius: .5rem;
+}
 
-  form 
+form label {
+  display:block;
+  margin-bottom:5px;
+}
 
-  form ::placeholder {
-    padding-left:6px;
-  }
-  
-  
-  fieldset:invalid p {
-    display:none;
-  }
-  input:invalid {
-    border-color: rgba(255, 0, 0, 0.651);
-  }
-  input:valid {
-    border-color:green;
-  } 
-  input:focus {
-    transform: scale(1.01, 1.01);
-  }
-  form:valid button {
-    opacity:1
-  }
-  form:invalid button {
-    opacity: 0;  
-  }
-  
-  fieldset:invalid {
-    background: rgba(255,0,0,.1);
-  }
-  
-  
-  article img{
-    object-fit: cover;
-    width:20em;
-    margin:0 auto;
-    border-radius:8px;
-    max-height:355px;
-  }
-  
-  article li{
-  list-style-type:none;
-  font-size:1.2em;
-  
-  margin:0.5em;
-  }
-  
-  
-  article {
+form::placeholder {
+  padding-left:6px;
+}
+
+fieldset:invalid p {
+  display:none;
+}
+input:invalid {
+  border-color: rgba(255, 0, 0, 0.651);
+}
+input:valid {
+  border-color:green;
+} 
+input:focus {
+  transform: scale(1.01, 1.01);
+}
+form:valid button {
+  opacity:1
+}
+form:invalid button {
+  opacity: 0;  
+}
+fieldset:invalid {
+  background: rgba(255,0,0,.1);
+}
+
+
+/* Profielen */
+article {
   position: relative;
   border-radius: 0.75rem;
   color: white;
@@ -206,60 +246,116 @@ a.btn-registreren {
   display:flex;
   flex-direction:column;
   box-shadow: 10px 10px 5px #363535;
-  }
-  
-  section h1 {
-    color:#5FDFF6;
-    padding-left: 0.6em;
-    font-size: 1.8em;
-  }
-  article h3{
+  max-width:21em;
+}
+
+article img{
+  object-fit: cover;
+  width:20em;
+  margin:0 auto;
+  border-radius:8px;
+  max-height:20em
+}
+
+article li{
+  list-style-type:none;
+  font-size:1.2em;
+  margin:0.5em;
+}
+
+article h3{
   color:#fff;
   font-weight:bold;
   font-size:1.5em;
   margin:0.5em;
-  }
-  
-    article h3:hover{
+}
+  article h3:hover {
     text-decoration:underline;
-    }
-    
+  }
+
   article h4{
-  color:#5FDFF6;
-  font-weight:bold;
-  font-size:1.2em;
-  margin:0.5em;
+    color:#5FDFF6;
+    font-weight:bold;
+    font-size:1.2em;
+    margin:0.5em;
   }
-  
-  
+    
   article a{
-  text-decoration:none;
-  color:#fff;
+    text-decoration:none;
+    color:#fff;
   }
-  
+    
   article button{
-  color: #fff ;
-  background-color: #5FDFF6;
-  box-shadow: inset 0 -.1875rem .0625rem #363535;
-  padding: .4375em 1.5em .5625em;
-  border: 0;
-  font-weight: bold;
-  width:23em;
-  margin:0 auto;
-  line-height: 1.5;
-  cursor: pointer;
-  display: inline-block;
-  border-radius: 1.25em;
-  min-height: 1.5rem;
-  min-width: 1.5rem;
-  margin-top:1em;
+    color: #fff ;
+    background-color: #5FDFF6;
+    box-shadow: inset 0 -.1875rem .0625rem #363535;
+    padding: .4375em 1.5em .5625em;
+    border: 0;
+    font-weight: bold;
+    width:23em;
+    margin:0 auto;
+    line-height: 1.5;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 1.25em;
+    min-height: 1.5rem;
+    min-width: 1.5rem;
+    margin-top:1em;
   }
   
   article div{
-  margin-top:auto;
+    margin-top:auto;
   }
+
   article button:nth-of-type(2) {
-  background-color: #2800a0;
-  box-shadow: inset 0 -.1875em .0625em #120145;
-  color: #fff;
+    background-color: #2800a0;
+    box-shadow: inset 0 -.1875em .0625em #120145;
+    color: #fff;
+  }  
+
+h1.profile {
+  color:#5FDFF6;
+  padding-left: 0.6em;
+  font-size: 1.8em;
+}
+
+/* Mediaquery */
+@media only screen and (max-width: 600px) {
+  header nav {
+    box-shadow: 10px 10px 5px #202020;
   }
+
+  nav ul li a p {
+  display: none;
+  }
+}
+@media only screen and (min-width: 600px) {
+
+  header nav ul {
+    margin-left: 70px;
+  }
+
+  nav ul li a .material-icons {
+    display: none;
+  }
+  nav ul li a p {
+    display: inline-block;
+    margin: 25px;
+    }
+  }
+
+  
+@media screen and (max-width: 50em) {
+  section{grid-template-columns: 1fr 1fr;}
+  }	
+  
+  @media screen and (max-width: 35em) {
+  section{grid-template-columns: 1fr;}
+  header img {width:5em;}
+  header nav ul li a{
+      text-decoration:none;
+      color: #fff;
+      font-size:1.4em;
+      padding: 0.5em;
+      }
+  }	

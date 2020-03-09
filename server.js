@@ -1,8 +1,6 @@
 const express = require('express');
 const app = express();
-// const path = require('path');
-var slug = require('slug')
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 const data = []
 
 app.use(express.static('public'));
@@ -27,29 +25,28 @@ function form(req, res) {
 function matchen(req, res) {
     console.log('matchen')
     console.log(req.body)
-    var id = slug(req.body.sport).toLowerCase()
 
     data.push({
-        id: id,
         sport: req.body.sport,
         anders:req.body.anders, 
-        amount: req.body.amount,
+        amount: req.body.amount
     })
     res.render('pages/profielen', {data: data})
 }
 
-const test = "test";
-// // Route home
-// app.get('/home', function(req, res) {
-//     res.sendFile(path.join(__dirname+'/public/index.html'));
-// });
-
-
-// // Query params
-// app.get('/home/name/:Naam/gender/:Gender', function (req, res) {
-//     res.send(req.params)
-//     console.log(req.params);
-//   })
+const mongo = require('mongodb')
+ 
+require('dotenv').config()
+  
+var db = null
+var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT
+console.log("dit is de url", url);
+mongo.MongoClient.connect(url, function (err, client) {
+  if (err) throw err
+  console.log("no error")
+  db = client.db(process.env.DB_NAME)
+  console.log("this is the database", db)
+})
 
 // Show 404 
 app.use(function (req, res) {

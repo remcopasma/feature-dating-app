@@ -8,36 +8,36 @@
 		 <%- include('../partials/header') %>
     </header>
 <main>
-	<form action='/' method='post'>
+	<form action=/ method=post enctype=multipart/form-data>
         <p>Geef iedere sport een cijfer!</p>
         <label>
             <span>Welke sport vind je leuk: </span>
             <label class="sports">Voetbal
-                <input type="checkbox" name=sport value=voetbal>
+                <input type="checkbox" name=sport value=Voetbal>
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Tennis
-                <input type="checkbox" name=sport value=tennis>
+                <input type="checkbox" name=sport value=Tennis>
                 <span class="checkmark"></span>
             </label>
-            <label class="sports">Hockey
-                <input type="checkbox" name=sport value=hockey>
-                <span class="checkmark"></span>
-            </label>
+                <label class="sports">Hockey
+                    <input type="checkbox" name=sport value=Hockey>
+                    <span class="checkmark"></span>
+                </label>
             <label class="sports">Zwemmen
-                <input type="checkbox" name=sport value=zwemmen>
+                <input type="checkbox" name=sport value=Zwemmen>
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Fitness
-                <input type="checkbox" name=sport value=fitness>
+                <input type="checkbox" name=sport value=Fitness>
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Basketball
-                <input type="checkbox" name=sport value=fitness>
+                <input type="checkbox" name=sport value=Basketball>
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Volleybal
-                <input type="checkbox" name=sport value=fitness>
+                <input type="checkbox" name=sport value=Volleybal>
                 <span class="checkmark"></span>
             </label>
         </label>      
@@ -49,7 +49,12 @@
             <span>Aantal keer sporten in de week: </span>
             <input type="number" placeholder="6" name="amount" min="1" max="10">
         </label> 
-        <input type="submit"></button>
+        <label>
+            <span>Cover</span>
+            <input name=cover type=file accept=image/*>
+  </label>
+
+        <input type="submit" value="Bekijk jouw matches!"></button>
     </form>
 </main>
 </body>

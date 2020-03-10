@@ -2,8 +2,14 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const data = []
+var multer = require('multer')
 
 app.use(express.static('public'));
+
+
+var upload = multer({dest: 'public/upload/'})
+app.post('/', upload.single('cover'), matchen)
+
 
 // Using ejs
 app.set("view engine", "ejs");
@@ -29,13 +35,16 @@ function matchen(req, res) {
     data.push({
         sport: req.body.sport,
         anders:req.body.anders, 
-        amount: req.body.amount
+        amount: req.body.amount,
+        cover: req.file ? req.file.filename : null
     })
+    console.log(data);
     res.render('pages/profielen', {data: data})
+  
 }
 
+// Database connection
 const mongo = require('mongodb')
- 
 require('dotenv').config()
   
 var db = null
@@ -43,10 +52,11 @@ var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT
 console.log("dit is de url", url);
 mongo.MongoClient.connect(url, function (err, client) {
   if (err) throw err
-  console.log("no error")
+  console.log("no error occured")
   db = client.db(process.env.DB_NAME)
-  console.log("this is the database", db)
+//   console.log("this is the database", db)
 })
+ 
 
 // Show 404 
 app.use(function (req, res) {

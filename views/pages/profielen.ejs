@@ -7,8 +7,12 @@
     <header>
 	    <%- include('../partials/header') %>
     </header>
+    <main>
+      <h1 class="profile"> Jouw potentiële matches</h1>
 	<section>
-		<h1> Jouw potentiële matches</h1>
+<h2><%=(data[0].sport[0]) %></h2>
+<img alt src="/upload/<%= data.cover %>">
+
 		<article>
 			<a href="#">
 				<h3>Kjell Ruiter</h3>
@@ -17,9 +21,9 @@
 			<img src="images/kjell.jpg" alt="profielfoto">
 			
 				<li><strong>Leeftijd:</strong> 22 jaar </li>
-				<li><strong>Sport:</strong><%=(data[0].sport[0]) %> </li>
+				<li><strong>Sport:</strong>Voetbal</li>
 				<li><strong>Aantal keer p/w:</strong> 5 keer per week </li>
-			<button type="submit"><a href="profielen-details.html">Bekijk profiel</button></div>
+			<button type="submit"><a href="profielen-details.html">Bekijk profiel</a></button></div>
 		</article>
 		<article>
 			<a href="#">
@@ -30,18 +34,18 @@
 				<li><strong>Leeftijd:</strong> 22 jaar </li>
 				<li><strong>Sport:</strong> Crossfit</li>
 				<li><strong>Aantal keer p/w:</strong> 4 keer per week </li>
-			<button type="submit"><a href="profielen-details.html">Bekijk profiel</button></div>
+			<button type="submit"><a href="profielen-details.html">Bekijk profiel</a></button></div>
 		</article>
 		<article>
 			<a href="#">
 				<h3>Tom Pronk</h3>
 				<h4> 70% match </h4>
 			</a>
-			<img src="images/tom.jpg" alt="profielfoto">
+			<img src="images/pronk.jpeg" alt="profielfoto">
 				<li><strong>Leeftijd:</strong> 20 jaar </li>
 				<li><strong>Sport:</strong> Ballet </li>
 				<li><strong>Aantal keer p/w:</strong> 2 keer per week </li>
-			<button type="submit"><a href="profielen-details.html">Bekijk profiel</button></div>
+			<button type="submit"><a href="profielen-details.html">Bekijk profiel</a></button></div>
 		</article>
 		<article>
 			<a href="#">
@@ -52,8 +56,9 @@
 				<li><strong>Leeftijd:</strong> 21 jaar </li>
 				<li><strong>Sport:</strong> Paardrijden </li>
 				<li><strong>Aantal keer p/w:</strong> 1 keer per week </li>
-			<button type="submit"><a href="profielen-details.html">Bekijk profiel</button></div>
+			<button type="submit"><a href="profielen-details.html">Bekijk profiel</a></button></div>
 		</article>
 	</section>
+    </main>
 </body>
 </html>

@@ -8,36 +8,36 @@
 		 <%- include('../partials/header') %>
     </header>
 <main>
-	<form action=/ method=post enctype=multipart/form-data>
+	<form action='/' method='post'>
         <p>Geef iedere sport een cijfer!</p>
         <label>
             <span>Welke sport vind je leuk: </span>
             <label class="sports">Voetbal
-                <input type="checkbox" name=sport value=Voetbal>
+                <input type="checkbox" name=sporten value=Voetbal>
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Tennis
-                <input type="checkbox" name=sport value=Tennis>
+                <input type="checkbox" name=sporten value=Tennis>
                 <span class="checkmark"></span>
             </label>
                 <label class="sports">Hockey
-                    <input type="checkbox" name=sport value=Hockey>
+                    <input type="checkbox" name=sporten value=Hockey>
                     <span class="checkmark"></span>
                 </label>
             <label class="sports">Zwemmen
-                <input type="checkbox" name=sport value=Zwemmen>
+                <input type="checkbox" name=sporten value=Zwemmen>
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Fitness
-                <input type="checkbox" name=sport value=Fitness>
+                <input type="checkbox" name=sporten value=Fitness>
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Basketball
-                <input type="checkbox" name=sport value=Basketball>
+                <input type="checkbox" name=sporten value=Basketball>
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Volleybal
-                <input type="checkbox" name=sport value=Volleybal>
+                <input type="checkbox" name=sporten value=Volleybal>
                 <span class="checkmark"></span>
             </label>
         </label>      
@@ -47,13 +47,8 @@
         </label>   
         <label>
             <span>Aantal keer sporten in de week: </span>
-            <input type="number" placeholder="6" name="amount" min="1" max="10">
+            <input type="number" placeholder="6" name="aantal" min="1" max="10">
         </label> 
-        <label>
-            <span>Cover</span>
-            <input name=cover type=file accept=image/*>
-  </label>
-
         <input type="submit" value="Bekijk jouw matches!"></button>
     </form>
 </main>

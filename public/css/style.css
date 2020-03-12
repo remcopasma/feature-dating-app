@@ -330,7 +330,6 @@ h1.profile {
   }
 }
 @media only screen and (min-width: 600px) {
-
   header nav ul {
     margin-left: 70px;
   }
@@ -343,7 +342,6 @@ h1.profile {
     margin: 25px;
     }
   }
-
   
 @media screen and (max-width: 50em) {
   section{grid-template-columns: 1fr 1fr;}

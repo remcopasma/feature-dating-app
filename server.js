@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
 const data = []
-const mongo = require('mongodb')
+const {MongoClient} = require('mongodb');
 app.use(express.static('public'));
 require('dotenv').config()
 
@@ -13,56 +13,72 @@ app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
 
 // Database connection
-var db = null
-var url = 'mongodb://' + process.env.DB_HOST + ':' + process.env.DB_PORT
-console.log("dit is de url", url);
-mongo.MongoClient.connect(url, function (err, client) {
-  if (err) throw err
-  console.log("no error occured")
-  db = client.db(process.env.DB_NAME)
-//   console.log("this is the database", db)
-})
+const uri = process.env.MONGO_URI
+async function callDb(){
+
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    try {
+		await client.connect();
+
+		const db = client.db('db01');
+
+		const tags = await db.collection('personen').find({}).toArray();
+        console.log(tags);
+        return tags
 
 
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+callDb()
+
+async function writeDb(data){
+    console.log('writeDb')
+    console.log(data)
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    try {
+		await client.connect();
+
+		const db = client.db('db01');
+
+		const tags = await db.collection('tags').insertOne({
+                sporten: data.sporten,
+                anders: data.anders, 
+                aantal: data.aantal
+            })
+        console.log(tags);   
+          
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+  
 // Getting input form
 app.get('/matchen', form)
 app.use(bodyParser.urlencoded({ extended: true }))
 app.post('/', matchen)
+app.post('/matchen', matchen)
 
 function form(req, res) {
     console.log('form')
     console.log(res.body)
     res.render('matchen.ejs')
-}
+}   
 
-function matchen(req, res) {
+async function matchen(req, res) {
     console.log('matchen')
     console.log(req.body)
-    db.collection('tags').insertOne({
-        sporten: req.body.sporten,
-        anders:req.body.anders, 
-        aantal: req.body.aantal
-      }, done)
-    
-      function done(err, data) {
-        if (err) {
-          next(err)
-        } else {
-          res.redirect('/' + data.insertedId)
-        }
-      }
-    data.push({
-        sporten: req.body.sporten,
-        anders:req.body.anders, 
-        aantal: req.body.aantal
-    })
-    console.log(data);
+    writeDb(req.body)
+    const data = await callDb()
     res.render('pages/profielen', {data: data})
-
-}
-
-
-
+}    
 
 // Show 404 
 app.use(function (req, res) {

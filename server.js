@@ -14,7 +14,7 @@ app.get("/profielen", (req, res) => res.render("pages/profielen"));
 
 // Database connection
 const uri = process.env.MONGO_URI
-async function callDb(){
+async function callDatabase(){
 
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -34,7 +34,7 @@ async function callDb(){
         await client.close();
     }
 }
-callDb()
+callDatabase()
 
 async function writeDb(data){
     console.log('writeDb')
@@ -59,7 +59,8 @@ async function writeDb(data){
         await client.close();
     }
 }
-  
+
+
 // Getting input form
 app.get('/matchen', form)
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -76,7 +77,7 @@ async function matchen(req, res) {
     console.log('matchen')
     console.log(req.body)
     writeDb(req.body)
-    const data = await callDb()
+    const data = await callDatabase()
     res.render('pages/profielen', {data: data})
 }    
 

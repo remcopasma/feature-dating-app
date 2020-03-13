@@ -27,24 +27,12 @@ async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
         
 		const data = await db.collection(`${vanWaarWilIkHetHebben}`).find({}).toArray();
         data.forEach(person =>{
-            for (let index = 0; index < watIkWilHebben.length; index++) {
-                person.sporten.forEach(function(sport){
-                    if(sport == watIkWilHebben[i]){
-                        jongens.push(person)
-                    }
-                    else {
-                        console.log("je zit in de elkse")
-                    }
-                })
-                
-                
+            console.log(person.sporten.includes(watIkWilHebben))
+            if(person.sporten.includes(watIkWilHebben)){
+                jongens.push(person)
+            } else{
+                console.log(person.name,'heeft geen gemeenschappelijke sporten');
             }
-            // if(person.sporten.includes(watIkWilHebben)){
-            //     console.log("bbbbbbbbbbbbb")
-                
-            // } else{
-            //     console.log(person.name,'heeft geen gemeenschappelijke sporten');
-            // }
         });
         console.log('jongens met wie je een gemeenschappelijke sport deelt',jongens)
         return jongens

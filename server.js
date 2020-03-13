@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const data = []
+const dataArray = []
+const tagsArray = []
 const {MongoClient} = require('mongodb');
 app.use(express.static('public'));
 require('dotenv').config()
@@ -13,20 +14,40 @@ app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
 
 // Database connection
+let jongens = [];
 const uri = process.env.MONGO_URI
-async function callDatabase(){
-
+async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
+    
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
+    
     try {
-		await client.connect();
-
+        await client.connect();
+        
 		const db = client.db('db01');
-
-		const tags = await db.collection('personen').find({}).toArray();
-        console.log(tags);
-        return tags
-
+        
+		const data = await db.collection(`${vanWaarWilIkHetHebben}`).find({}).toArray();
+        data.forEach(person =>{
+            for (let index = 0; index < watIkWilHebben.length; index++) {
+                person.sporten.forEach(function(sport){
+                    if(sport == watIkWilHebben[i]){
+                        jongens.push(person)
+                    }
+                    else {
+                        console.log("je zit in de elkse")
+                    }
+                })
+                
+                
+            }
+            // if(person.sporten.includes(watIkWilHebben)){
+            //     console.log("bbbbbbbbbbbbb")
+                
+            // } else{
+            //     console.log(person.name,'heeft geen gemeenschappelijke sporten');
+            // }
+        });
+        console.log('jongens met wie je een gemeenschappelijke sport deelt',jongens)
+        return jongens
 
     } catch (e) {
         console.error(e);
@@ -34,11 +55,14 @@ async function callDatabase(){
         await client.close();
     }
 }
-callDatabase()
+const vanuitWaar = 'personen'
+// callDatabase('personen','volleybal')
+// de onderste moet ik callen nadat het formulier is ingevuld. dus wanneer er tags zijn gewrite in  db.
+// callDatabase('tags','')
 
 async function writeDb(data){
-    console.log('writeDb')
-    console.log(data)
+    // console.log('writeDb')
+    // console.log(data)
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
@@ -51,7 +75,29 @@ async function writeDb(data){
                 anders: data.anders, 
                 aantal: data.aantal
             })
-        console.log(tags);   
+        // console.log(tags);   
+          
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+
+async function deleteDatabase(data){
+    console.log('Deleted from Database')
+    console.log(data)
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    try {
+		await client.connect();
+
+		const db = client.db('db01');
+
+		const tags = await db.collection('tags').deleteOne({
+            _id: mongo.ObjectID(id)
+            })
+        // console.log(tags);   
           
     } catch (e) {
         console.error(e);
@@ -75,10 +121,39 @@ function form(req, res) {
 
 async function matchen(req, res) {
     console.log('matchen')
-    console.log(req.body)
     writeDb(req.body)
-    const data = await callDatabase()
-    res.render('pages/profielen', {data: data})
+    jongens = [];
+    const boysToRender = [];
+    const person =[]
+    let data;
+    if (req.body.sporten.length < 1){
+        for (let index = 0; index < req.body.sporten.length; index++) {
+            const sporten = req.body.sporten[index];
+            const partData = await callDatabase('personen',`${sporten}`)
+            // in boystorender moeten we zoeken of de persoon er al in zit voooooordat we pushen
+            for (let index = 0; index < partData.length; index++) {
+                const element = partData[index];
+            if(boysToRender.includes(partData) == false){
+                jongens.push(person)
+                }
+            }
+            boysToRender.push(partData);
+            data = boysToRender
+            // console.log(sporten)
+        }
+    } else{
+        console.log("we zitten in de else")
+        data = await callDatabase('personen',`${req.body.sporten}`)
+        console.log(req.body.sporten)
+    }
+
+    const tags = await writeDb(req.body)
+    tagsArray.push(tags);
+    console.log('data ',boysToRender);
+    res.render('pages/profielen', {
+        data: data,
+        tags: tags
+    })  
 }    
 
 // Show 404 

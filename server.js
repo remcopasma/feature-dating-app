@@ -17,7 +17,7 @@ app.get("/profielen", (req, res) => res.render("pages/profielen"));
 let jongens = [];
 const uri = process.env.MONGO_URI
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
-    
+    console.log('waaarikhet',watIkWilHebben)
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     
     try {
@@ -47,6 +47,30 @@ const vanuitWaar = 'personen'
 // callDatabase('personen','volleybal')
 // de onderste moet ik callen nadat het formulier is ingevuld. dus wanneer er tags zijn gewrite in  db.
 // callDatabase('tags','')
+
+async function callDbTags(){
+
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    try {
+		await client.connect();
+
+		const db = client.db('db01');
+
+		const tags = await db.collection('tags').find({}).toArray();
+		// console.log('DEEEEEEEEEEEE',tags);
+
+
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+
+callDbTags().catch(console.error);
+
+
 
 async function writeDb(data){
     // console.log('writeDb')
@@ -130,18 +154,18 @@ async function matchen(req, res) {
             // console.log(sporten)
         }
     } else{
-        console.log("we zitten in de else")
+        // console.log("we zitten in de else")
         data = await callDatabase('personen',`${req.body.sporten}`)
-        console.log(req.body.sporten)
+        // console.log(req.body.sporten)
     }
 
-    const tags = await writeDb(req.body)
-    tagsArray.push(tags);
-    console.log('data ',boysToRender);
+    const tags = await callDbTags(req.body.sporten)
+    tagsArray.push(req.body.sporten);
+    // console.log('data ',boysToRender);
     res.render('pages/profielen', {
         data: data,
-        tags: tags
-    })  
+        tagsArray: tagsArray
+    })     
 }    
 
 // Show 404 

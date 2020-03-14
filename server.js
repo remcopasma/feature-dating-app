@@ -4,6 +4,8 @@ const bodyParser = require('body-parser')
 const dataArray = []
 const tagsArray = []
 const {MongoClient} = require('mongodb');
+let jongens = [];
+
 app.use(express.static('public'));
 require('dotenv').config()
 
@@ -14,8 +16,8 @@ app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
 
 // Database connection
-let jongens = [];
 const uri = process.env.MONGO_URI
+
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
     console.log('waaarikhet',watIkWilHebben)
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -44,9 +46,6 @@ async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
     }
 }
 const vanuitWaar = 'personen'
-// callDatabase('personen','volleybal')
-// de onderste moet ik callen nadat het formulier is ingevuld. dus wanneer er tags zijn gewrite in  db.
-// callDatabase('tags','')
 
 async function callDbTags(){
 
@@ -67,10 +66,7 @@ async function callDbTags(){
         await client.close();
     }
 }
-
 callDbTags().catch(console.error);
-
-
 
 async function writeDb(data){
     // console.log('writeDb')
@@ -96,7 +92,7 @@ async function writeDb(data){
     }
 }
 
-async function deleteDatabase(data){
+async function deleteFromDatabase(data){
     console.log('Deleted from Database')
     console.log(data)
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
@@ -107,7 +103,7 @@ async function deleteDatabase(data){
 		const db = client.db('db01');
 
 		const tags = await db.collection('tags').deleteOne({
-            _id: mongo.ObjectID(id)
+            _id: tagsArray.ObjectID(id)
             })
         // console.log(tags);   
           
@@ -124,6 +120,10 @@ app.get('/matchen', form)
 app.use(bodyParser.urlencoded({ extended: true }))
 app.post('/', matchen)
 app.post('/matchen', matchen)
+
+
+
+app.post('/profielen', deleteFromDatabase)
 
 function form(req, res) {
     console.log('form')
@@ -167,6 +167,7 @@ async function matchen(req, res) {
         tagsArray: tagsArray
     })     
 }    
+
 
 // Show 404 
 app.use(function (req, res) {

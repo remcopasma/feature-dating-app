@@ -92,7 +92,27 @@ async function writeDb(data){
     }
 }
 
+async function deleteFromDatabase(data){
+    console.log('Deleted from Database')
+    console.log(data)
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
+    try {
+		await client.connect();
+
+		const db = client.db('db01');
+
+		const tags = await db.collection('tags').deleteOne({
+            _id: tagsArray.ObjectID(id)
+            })
+        // console.log(tags);   
+          
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
 
 
 // Getting input form

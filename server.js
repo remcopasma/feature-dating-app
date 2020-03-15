@@ -1,10 +1,12 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
+const {MongoClient} = require('mongodb');
 const dataArray = []
 const tagsArray = []
-const {MongoClient} = require('mongodb');
 let jongens = [];
+
+
 
 app.use(express.static('public'));
 require('dotenv').config()
@@ -69,21 +71,18 @@ async function callDbTags(){
 callDbTags().catch(console.error);
 
 async function writeDb(data){
-    // console.log('writeDb')
-    // console.log(data)
+
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
 		await client.connect();
 
 		const db = client.db('db01');
-
 		const tags = await db.collection('tags').insertOne({
                 sporten: data.sporten,
                 anders: data.anders, 
                 aantal: data.aantal
             })
-        // console.log(tags);   
           
     } catch (e) {
         console.error(e);
@@ -93,20 +92,17 @@ async function writeDb(data){
 }
 
 async function deleteFromDatabase(data){
-    console.log('Deleted from Database')
-    console.log(data)
+    // console.log('daattaaaaaa', data)
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
 		await client.connect();
 
 		const db = client.db('db01');
-
 		const tags = await db.collection('tags').deleteOne({
-            _id: tagsArray.ObjectID(id)
+            sporten: data.sporten,
             })
-        // console.log(tags);   
-          
+          console.log('Meegestuurde data',tags)
     } catch (e) {
         console.error(e);
     } finally {
@@ -161,7 +157,6 @@ async function matchen(req, res) {
 
     const tags = await callDbTags(req.body.sporten)
     tagsArray.push(req.body.sporten);
-    // console.log('data ',boysToRender);
     res.render('pages/profielen', {
         data: data,
         tagsArray: tagsArray

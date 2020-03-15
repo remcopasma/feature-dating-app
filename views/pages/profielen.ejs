@@ -10,15 +10,14 @@
     <main>
       <h1 class="profile"> Jouw potentiële matches op basis van de tags:</h1>
 	<section>
-
-<form action='/profielen' method='post'>
-        <p>Jouw Tags</p>
-        <label>
-               <h3><%= tagsArray[0] %></h3>
-			    <input type="submit" value="Verwijder Tags"></button>
-		</label>
-</form>
-<% for(var i=0; i < data.length; i++) { %>
+		<form action='/profielen' method='post'>
+				<p>Jouw Tags</p>
+				<label>
+					<h3><%= tagsArray[0] %></h3>
+						<input type="submit" value="Verwijder Tags"></button>
+				</label>
+		</form>
+		<% for(var i=0; i < data.length; i++) { %>
 		<article>
 			<a href="#">
 				<h3><%= data[i].name %></h3>

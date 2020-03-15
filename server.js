@@ -92,7 +92,7 @@ async function writeDb(data){
 }
 
 async function deleteFromDatabase(data){
-    // console.log('daattaaaaaa', data)
+    console.log('dataaa', data)
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
@@ -100,9 +100,9 @@ async function deleteFromDatabase(data){
 
 		const db = client.db('db01');
 		const tags = await db.collection('tags').deleteOne({
-            sporten: data.sporten,
+            sporten: data.sporten
             })
-          console.log('Meegestuurde data',tags)
+          console.log('taaaags',tags)
     } catch (e) {
         console.error(e);
     } finally {
@@ -156,6 +156,7 @@ async function matchen(req, res) {
     }
 
     const tags = await callDbTags(req.body.sporten)
+  
     tagsArray.push(req.body.sporten);
     res.render('pages/profielen', {
         data: data,

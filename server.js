@@ -71,6 +71,7 @@ async function callDbTags(){
 callDbTags().catch(console.error);
 
 async function writeDb(data){
+    console.log('daaaataaaaa', data)
 
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
@@ -91,8 +92,15 @@ async function writeDb(data){
     }
 }
 
-async function deleteFromDatabase(data){
-    console.log('dataaa', data)
+async function deleteFromDatabase(req, res){
+
+console.log('Deleted from Database');
+
+console.log(req.body.sporten);
+
+console.log('Deleted from database req');
+
+    // console.log('dataaaaa', data)
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
@@ -100,9 +108,9 @@ async function deleteFromDatabase(data){
 
 		const db = client.db('db01');
 		const tags = await db.collection('tags').deleteOne({
-            sporten: data.sporten
+            sporten: req.body.sporten
             })
-          console.log('taaaags',tags)
+        //   console.log('taaaags',tags)
     } catch (e) {
         console.error(e);
     } finally {

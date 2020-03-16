@@ -22,7 +22,6 @@ app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
 app.get('/matchen', form)
 app.get('/logout', logout);
-app.post('/', matchen)
 app.post('/matchen', matchen)   
 app.post('/profielen', deleteFromDatabase)
 
@@ -104,7 +103,8 @@ function logout(req, res, next) {
       if (err) {
         next(err)
       } else {
-        res.redirect('/matchen')
+        res.redirect('/')
+      
       }
     })
 }
@@ -164,6 +164,7 @@ async function matchen(req, res) {
             boysToRender.push(partData);
             data = boysToRender
             // console.log(sporten)
+            
         }
     } else{
         // console.log("we zitten in de else")

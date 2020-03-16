@@ -107,7 +107,7 @@ function logout(req, res, next) {
         res.redirect('/matchen')
       }
     })
-  }
+}
   
 
 async function deleteFromDatabase(req, res){
@@ -179,7 +179,6 @@ async function matchen(req, res) {
         tagsArray: tagsArray
     })     
 }    
-
 
 // Show 404 
 app.use(function (req, res) {

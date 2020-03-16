@@ -14,9 +14,10 @@
 			<p>Jouw Tags</p>    
 			<label>
 				<input type="hidden" name="_id">
-				<input type="input" name="sporten" value="<%= tagsArray[0]%>">>
+				<input type="input" name="sporten" value="<%= tagsArray[0]%>">
 				<input type="submit" value="Verwijder Tags"></button>
 			</label>
+            <li><a href="/logout"><i class="material-icons ">exit_to_app</i></a></li>
 		</form>
 
         <% for(var i=0; i < data.length; i++) { %>
@@ -25,8 +26,7 @@
                 <h3><%= data[i].name %></h3>
             </a>
             <img src="images/kjell.jpg" alt="profielfoto">
-                <li><%= data[i]._id %></li>
-                <li><strong>ID:</strong><%= data[i]._id %> ID </li>
+                
            		<li><strong>Leeftijd:</strong><%= data[i].age %> jaar </li>
                 <li><strong>Sport:</strong><%= data[i].sporten %></li>
                 <li><strong>Aantalkeer p/w:</strong><%= data[i].aantal %> keer per week </li>

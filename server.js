@@ -10,22 +10,22 @@ const tagsArray = []
 let jongens = [];
 
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(express.static('public'));
+app.use(express.static('public'));  
 app.use(session({
     resave: false,
     saveUninitialized: true,
     secret: process.env.SESSION_SECRET
-  }))
+  }))   
 app.set("view engine", "ejs");
-
 app.get("/", (req, res) => res.render("pages/index"));
 app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
 app.get('/matchen', form)
-
+app.get('/logout', logout);
 app.post('/', matchen)
-app.post('/matchen', matchen)
+app.post('/matchen', matchen)   
 app.post('/profielen', deleteFromDatabase)
+
 
 
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
@@ -99,6 +99,17 @@ async function writeDb(data){
     }
 }
 
+function logout(req, res, next) {
+    req.session.destroy(function (err) {
+      if (err) {
+        next(err)
+      } else {
+        res.redirect('/matchen')
+      }
+    })
+  }
+  
+
 async function deleteFromDatabase(req, res){
 
 console.log('Deleted from Database');
@@ -116,10 +127,11 @@ console.log('Deleted from database req');
 		const db = client.db('db01');
 		const tags = await db.collection('tags').deleteOne({
             sporten: req.body.sporten
-            })
+            })  
             res.render('pages/matchen')     
    
     } catch (e) {
+        
         console.error(e);
     } finally {
         await client.close();
@@ -160,7 +172,7 @@ async function matchen(req, res) {
     }
 
     const tags = await callDbTags(req.body.sporten)
-  
+
     tagsArray.push(req.body.sporten);
     res.render('pages/profielen', {
         data: data, persoon: req.session.jongens,

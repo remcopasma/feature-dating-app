@@ -1,24 +1,32 @@
 const express = require('express');
 const app = express();
+const dotenv = require('dotenv').config()
 const bodyParser = require('body-parser')
+var session = require('express-session')
 const {MongoClient} = require('mongodb');
+const uri = process.env.MONGO_URI
 const dataArray = []
 const tagsArray = []
 let jongens = [];
 
-
-
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'));
-require('dotenv').config()
-
-// Using ejs
+app.use(session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET
+  }))
 app.set("view engine", "ejs");
+
 app.get("/", (req, res) => res.render("pages/index"));
 app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
+app.get('/matchen', form)
 
-// Database connection
-const uri = process.env.MONGO_URI
+app.post('/', matchen)
+app.post('/matchen', matchen)
+app.post('/profielen', deleteFromDatabase)
+
 
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
     console.log('waaarikhet',watIkWilHebben)
@@ -47,7 +55,6 @@ async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
         await client.close();
     }
 }
-const vanuitWaar = 'personen'
 
 async function callDbTags(){
 
@@ -110,7 +117,8 @@ console.log('Deleted from database req');
 		const tags = await db.collection('tags').deleteOne({
             sporten: req.body.sporten
             })
-        //   console.log('taaaags',tags)
+            res.render('pages/matchen')     
+   
     } catch (e) {
         console.error(e);
     } finally {
@@ -119,19 +127,7 @@ console.log('Deleted from database req');
 }
 
 
-// Getting input form
-app.get('/matchen', form)
-app.use(bodyParser.urlencoded({ extended: true }))
-app.post('/', matchen)
-app.post('/matchen', matchen)
-
-
-
-app.post('/profielen', deleteFromDatabase)
-
 function form(req, res) {
-    console.log('form')
-    console.log(res.body)
     res.render('matchen.ejs')
 }   
 
@@ -167,7 +163,7 @@ async function matchen(req, res) {
   
     tagsArray.push(req.body.sporten);
     res.render('pages/profielen', {
-        data: data,
+        data: data, persoon: req.session.jongens,
         tagsArray: tagsArray
     })     
 }    

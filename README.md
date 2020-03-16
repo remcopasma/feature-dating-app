@@ -1,10 +1,29 @@
-# README
-## Het concept sportmatch
-Wanneer iemand een date zoekt op basis van gelijke interesse in verschillende sporten moet er match getoont worden op basis van de tag(sport). De voorkeuren die jij als persoon voor verschillende sporten aangeeft is de basis voor de personen die aan jou getoond worden. Het gaat in mijn concept dus om hoe een match onderwater wordt getoont d.m.v de tags.
+# SportMatch
+## The Concept
+When someone searches for a date based on equal interest in different sports, match must be shown based on the tag (sport). The preferences that you as a person indicate for different sports is the basis for the people who are shown to you. In my concept it is about how a match is shown underwater by means of the tags.
+
+
+![Image description](https://i.imgur.com/FFFSLyK.jpg)
+
+
+## How to install
+Clone the repository
+```
+git clone https://github.com/remcopasma/feature-dating-app.git
+```
+
+
+```
+npm install 
+npm server.js
+nodemon node server.js
+```
+
 ## Icons
 * Material icons
 ## Images
 * https://unsplash.com/s/photos/dating
 * https://www.pexels.com/search/dating/
 ## Licence
-MIT LICENCE
+MIT LICENCE  
+Copyright (c) 2020 Remco Pasma

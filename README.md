@@ -18,7 +18,7 @@ git clone https://github.com/remcopasma/feature-dating-app.git
 
 ```
 npm install 
-npm server.js
+node server.js
 nodemon node server.js
 ```
 

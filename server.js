@@ -19,7 +19,7 @@ app.use(session({
   }))   
 app.set("view engine", "ejs");
 app.get("/", (req, res) => res.render("pages/index"));
-app.get("/matchen", (req, res) => res.render("pages/matchen"));
+app.get("/matchen", (req, res) => res.render("pages/matchen",));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
 app.get('/matchen', form)
 app.get('/logout', logout);
@@ -104,7 +104,7 @@ function logout(req, res, next) {
       if (err) {
         next(err)
       } else {
-        res.redirect('/')
+        res.redirect('/matchen')
       
       }
     })
@@ -141,8 +141,9 @@ console.log('Deleted from database req');
 
 
 function form(req, res) {
-    res.render('matchen.ejs')
-}   
+    const sporten = req.session.data.sporten 
+    res.render('matchen.ejs', sporten)
+} 
 
 async function matchen(req, res) {
     console.log('matchen')
@@ -175,9 +176,8 @@ async function matchen(req, res) {
 
     const tags = await callDbTags(req.body.sporten)
     tagsArray.push(req.body.sporten);
-    req.session.data = {data: data}
-    req.session.data = data
-    console.log('daaaaaaa', data)
+    
+    // console.log('daaaaaaa', sporten)
     res.render('pages/profielen', {
         data: data,
         tagsArray: tagsArray  

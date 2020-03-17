@@ -142,6 +142,7 @@ console.log('Deleted from database req');
 
 function form(req, res) {
     const sporten = req.session.data.sporten 
+    console.log('fooooorrm', sporten)
     res.render('matchen.ejs', sporten)
 }    
 

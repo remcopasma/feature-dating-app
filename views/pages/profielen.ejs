@@ -19,21 +19,19 @@
 			</label>
             <li><a href="/logout"><i class="material-icons ">exit_to_app</i></a></li>
 		</form>
-   <%if (tagsArray.length >= 0) { %>
+
         <% for(var i=0; i < data.length; i++) { %>
         <article>
             <a href="#">
                 <h3><%= data[i].name %></h3>
             </a>
             <img src="images/kjell.jpg" alt="profielfoto">
-                
            		<li><strong>Leeftijd:</strong><%= data[i].age %> jaar </li>
                 <li><strong>Sport:</strong><%= data[i].sporten %></li>
                 <li><strong>Aantalkeer p/w:</strong><%= data[i].aantal %> keer per week </li>
             <button type="submit"><a href="profielen-details.html">Bekijk profiel</a></button></div>
         </article>
 		<% } %> 
-        <% } %> 
 	</section>
     </main>
 </body>

@@ -104,7 +104,7 @@ function logout(req, res, next) {
       if (err) {
         next(err)
       } else {
-        res.redirect('/profielen')
+        res.redirect('/matchen')
       
       }
     })

@@ -5,9 +5,7 @@ const bodyParser = require('body-parser')
 var session = require('express-session')
 const {MongoClient} = require('mongodb');
 const uri = process.env.MONGO_URI
-const dataArray = []
 const tagsArray = []
-const persoon = []
 let jongens = []
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -26,10 +24,8 @@ app.get('/logout', logout);
 app.post('/matchen', matchen)   
 app.post('/profielen', deleteFromDatabase)
 
-
-
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
-    console.log('waaarikhet',watIkWilHebben)
+
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     
     try {
@@ -39,7 +35,6 @@ async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
         
 		const data = await db.collection(`${vanWaarWilIkHetHebben}`).find({}).toArray();
         data.forEach(person =>{
-            console.log(person.sporten.includes(watIkWilHebben))
             if(person.sporten.includes(watIkWilHebben)){
                 jongens.push(person)
             } else{
@@ -66,8 +61,6 @@ async function callDbTags(){
 		const db = client.db('db01');
 
 		const tags = await db.collection('tags').find({}).toArray();
-		// console.log('DEEEEEEEEEEEE',tags);
-
 
     } catch (e) {
         console.error(e);
@@ -78,8 +71,6 @@ async function callDbTags(){
 callDbTags().catch(console.error);
 
 async function writeDb(data){
-    console.log('daaaataaaaa', data)
-
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
@@ -105,21 +96,12 @@ function logout(req, res, next) {
         next(err)
       } else {
         res.redirect('/matchen')
-      
       }
     })
 }
   
-
 async function deleteFromDatabase(req, res){
 
-console.log('Deleted from Database');
-
-console.log(req.body.sporten);
-
-console.log('Deleted from database req');
-
-    // console.log('dataaaaa', data)
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
@@ -128,24 +110,21 @@ console.log('Deleted from database req');
 		const db = client.db('db01');
 		const tags = await db.collection('tags').deleteOne({
             sporten: req.body.sporten
-            })  
+        })  
             res.render('pages/matchen')     
    
     } catch (e) {
-        
         console.error(e);
     } finally {
         await client.close();
     }
 }
 
-
 function form(req, res) {
     res.render('matchen.ejs')
 }   
 
 async function matchen(req, res) {
-    console.log('matchen')
     writeDb(req.body)
     jongens = [];
     const boysToRender = [];
@@ -155,7 +134,6 @@ async function matchen(req, res) {
         for (let index = 0; index < req.body.sporten.length; index++) {
             const sporten = req.body.sporten[index];
             const partData = await callDatabase('personen',`${sporten}`)
-            // in boystorender moeten we zoeken of de persoon er al in zit voooooordat we pushen
             for (let index = 0; index < partData.length; index++) {
                 const element = partData[index];
             if(boysToRender.includes(partData) == false){
@@ -164,17 +142,13 @@ async function matchen(req, res) {
             }
             boysToRender.push(partData);
             data = boysToRender
-            // console.log(sporten)
-            
         }
     } else{
-        // console.log("we zitten in de else")
         data = await callDatabase('personen',`${req.body.sporten}`)
-        // console.log(req.body.sporten)
     }
 
     const tags = await callDbTags(req.body.sporten)
-    tagsArray.push(req.body.sporten);
+    tagsArray.push(req.body.sporten)
     req.session.data = {sporten: data}
     const { sporten } = req.session.data
     res.render('pages/profielen', {

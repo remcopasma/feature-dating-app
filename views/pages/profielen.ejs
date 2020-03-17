@@ -17,10 +17,9 @@
 				<input type="input" name="sporten" value="<%= tagsArray[0]%>">
 				<input type="submit" value="Verwijder Tags"></button>
 			</label>
-            <p><% console.log("logoooooutt", sporten) %></p>
             <li><a href="/logout"><i class="material-icons ">exit_to_app</i></a></li>
 		</form>
-
+   <%if (tagsArray.length >= 0) { %>
         <% for(var i=0; i < data.length; i++) { %>
         <article>
             <a href="#">
@@ -33,7 +32,8 @@
                 <li><strong>Aantalkeer p/w:</strong><%= data[i].aantal %> keer per week </li>
             <button type="submit"><a href="profielen-details.html">Bekijk profiel</a></button></div>
         </article>
-		<% } %>
+		<% } %> 
+        <% } %> 
 	</section>
     </main>
 </body>

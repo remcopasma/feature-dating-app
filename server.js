@@ -104,7 +104,7 @@ function logout(req, res, next) {
       if (err) {
         next(err)
       } else {
-        res.redirect('/matchen')
+        res.redirect('/profielen')
       
       }
     })
@@ -141,10 +141,8 @@ console.log('Deleted from database req');
 
 
 function form(req, res) {
-    const sporten = req.session.data.sporten 
-    console.log('fooooorrm', sporten)
-    res.render('matchen.ejs', sporten)
-}    
+    res.render('matchen.ejs')
+}   
 
 async function matchen(req, res) {
     console.log('matchen')
@@ -179,7 +177,6 @@ async function matchen(req, res) {
     tagsArray.push(req.body.sporten);
     req.session.data = {sporten: data}
     const { sporten } = req.session.data
-    console.log('daaaaaaa', sporten)
     res.render('pages/profielen', {
         data: data,
         sporten: sporten,

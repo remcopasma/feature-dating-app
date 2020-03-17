@@ -7,7 +7,8 @@ const {MongoClient} = require('mongodb');
 const uri = process.env.MONGO_URI
 const dataArray = []
 const tagsArray = []
-let jongens = [];
+const persoon = []
+let jongens = []
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'));  
@@ -173,11 +174,13 @@ async function matchen(req, res) {
     }
 
     const tags = await callDbTags(req.body.sporten)
-
     tagsArray.push(req.body.sporten);
+    req.session.data = {data: data}
+    req.session.data = data
+    console.log('daaaaaaa', data)
     res.render('pages/profielen', {
-        data: data, persoon: req.session.jongens,
-        tagsArray: tagsArray
+        data: data,
+        tagsArray: tagsArray  
     })     
 }    
 

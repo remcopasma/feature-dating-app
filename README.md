@@ -5,6 +5,9 @@ When someone searches for a date based on equal interest in different sports, ma
 
 ![Image description](https://i.imgur.com/FFFSLyK.jpg)
 
+## Database
+![](https://i.imgur.com/AZYqZMD.jpg)
+
 
 ## How to install
 Clone the repository
@@ -15,7 +18,7 @@ git clone https://github.com/remcopasma/feature-dating-app.git
 
 ```
 npm install 
-npm server.js
+node server.js
 nodemon node server.js
 ```
 

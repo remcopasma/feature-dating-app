@@ -126,7 +126,7 @@ function form(req, res) {
 
 async function matchen(req, res) {
     writeDb(req.body)
-    jongens = [];
+    const jongens = [];
     const boysToRender = [];
     const person =[]
     let data;

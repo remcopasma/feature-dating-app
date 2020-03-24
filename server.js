@@ -23,6 +23,7 @@ app.get('/matchen', form)
 app.get('/logout', logout);
 app.post('/matchen', matchen)   
 app.post('/profielen', deleteFromDatabase)
+app.post('/profielen', updateDb)
 
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
 
@@ -83,6 +84,26 @@ async function writeDb(data){
                 aantal: data.aantal
             })
           
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+}
+
+async function updateDb(tags){
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    try {
+		await client.connect();
+
+		const db = client.db('db01');
+		const updateTags = await db.collection('tags').updateOne({
+            sporten: req.body.sporten
+        })  
+            res.render('pages/profielen')  
+            console.log('updateeeeee', updateTags)   
+   
     } catch (e) {
         console.error(e);
     } finally {
@@ -151,6 +172,7 @@ async function matchen(req, res) {
     tagsArray.push(req.body.sporten)
     req.session.data = {sporten: data}
     const { sporten } = req.session.data
+    
     res.render('pages/profielen', {
         data: data,
         sporten: sporten,

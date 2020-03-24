@@ -18,6 +18,14 @@
 				<input type="submit" value="Verwijder Tags"></button>
 			</label>
 		</form>
+        <form action='/profielen' method='post'>
+			<p>Jouw Tags</p>    
+			<label>
+				<input type="hidden" name="_id">
+				<input type="input" name="sporten" value="<%= tagsArray[0]%>">
+				<input type="submit" value="Wijzig Sport"></button>
+			</label>
+		</form>
 
         <% for(var i=0; i < data.length; i++) { %>
         <article>

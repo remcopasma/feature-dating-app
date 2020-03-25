@@ -4,12 +4,14 @@ const dotenv = require('dotenv').config()
 const bodyParser = require('body-parser')
 const session = require('express-session')
 const {MongoClient} = require('mongodb');
+const helmet =require('helmet');
 const uri = process.env.MONGO_URI
 const tagsArray = []
 let jongens = []
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('public'));  
+app.use(helmet());
 app.use(session({
     resave: false,
     saveUninitialized: true,

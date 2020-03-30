@@ -22,13 +22,16 @@ app.get("/", (req, res) => res.render("pages/index"));
 app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
 app.get("/account", (req, res) => res.render("pages/account"));
-app.get("/update", (req, res) => res.render("pages/update"));
-app.get("/delete", (req, res) => res.render("pages/delete"));
+app.get("/update", (req, res) => {
+    console.log(tagsArray)
+    res.render("pages/update", {sporten:tagsArray})}
+    )
+app.get("/delete", (req, res) => res.render("pages/delete", {tagsArray}));
 app.get('/matchen', form)
 app.get('/logout', logout);
 app.post('/matchen', matchen)   
 app.post('/profielen', deleteFromDatabase)
-app.post('/account', updateDb)
+app.post('/profielen', updateDb)
 
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
 
@@ -101,14 +104,13 @@ async function updateDb(tags){
 
     try {
 		await client.connect();
-
+console.log(req.body.sporten)
 		const db = client.db('db01');
 		const updateTags = await db.collection('tags').updateOne(
             { "_id": req.body._id}, // Filter
             {$set: {"aantal": req.body.aantal}}, 
             {$set: {"sporten": req.body.sporten}},// Update
             {upsert: true} // add document with req.body._id if not exists 
-
        )
       .then((obj) => {
          console.log('Updated - ' + obj);
@@ -138,6 +140,8 @@ function logout(req, res, next) {
 async function deleteFromDatabase(req, res){
 
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+    const tags = await callDbTags(req.body.sporten)
+    tagsArray.push(req.body.sporten)
 
     try {
 		await client.connect();
@@ -160,6 +164,7 @@ function form(req, res) {
 }   
 
 async function matchen(req, res) {
+
     writeDb(req.body)
     const jongens = [];
     const boysToRender = [];
@@ -186,8 +191,6 @@ async function matchen(req, res) {
     tagsArray.push(req.body.sporten)
     req.session.data = {sporten: data}
     const { sporten } = req.session.data
-
-    
     res.render('pages/profielen', {
         data: data,
         sporten: sporten,

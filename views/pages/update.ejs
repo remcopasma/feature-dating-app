@@ -8,36 +8,37 @@
 		 <%- include('../partials/header') %>
     </header>
 <main>
-	<form action='/account' method='post'>
+	<form action='/profielen' method='post'>
+    <pre><code><%= sporten %></code></pre>
         <p>Update hier jouw voorkeuren!</p>
         <label>
             <span>Welke sport vind je leuk: </span>
             <label class="sports">Voetbal
-                <input type="checkbox" name=sporten value=Voetbal>
+                <input type="checkbox" name="sporten" value="Voetbal" checked="<%= sporten.includes('Voetbal')%> ">
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Tennis
-                <input type="checkbox" name=sporten value=Tennis>
+                <input type="checkbox" name=sporten value=Tennis checked="<%= sporten.includes('Tennis')%> ">
                 <span class="checkmark"></span>
             </label>
                 <label class="sports">Hockey
-                    <input type="checkbox" name=sporten value=Hockey>
+                    <input type="checkbox" name=sporten value=Hockey checked="<%= sporten.includes('Hockey')%> ">
                     <span class="checkmark"></span>
                 </label>
             <label class="sports">Zwemmen
-                <input type="checkbox" name=sporten value=Zwemmen>
+                <input type="checkbox" name=sporten value=Zwemmen checked="<%= sporten.includes('Zwemmen')%> ">
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Fitness
-                <input type="checkbox" name=sporten value=Fitness>
+                <input type="checkbox" name=sporten value=Fitness checked="<%= sporten.includes('Fitness')%> ">
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Basketball
-                <input type="checkbox" name=sporten value=Basketball>
+                <input type="checkbox" name=sporten value=Basketball checked="<%= sporten.includes('Basketball')%> ">
                 <span class="checkmark"></span>
             </label>
             <label class="sports">Volleybal
-                <input type="checkbox" name=sporten value=Volleybal>
+                <input type="checkbox" name=sporten value=Volleybal checked="<%= sporten.includes('Volleybal')%> ">
                 <span class="checkmark"></span>
             </label>
         </label>      
@@ -50,9 +51,6 @@
             <input type="number" placeholder="6" name="aantal" min="1" max="10">
         </label> 
         <input type="submit" value="Update voorkeuren"></button>
-
-        <a href="/update">update</a>
-        <a href="/delete">delete</a>
     </form>
 </main>
 </body>

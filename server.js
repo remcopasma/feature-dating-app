@@ -21,11 +21,12 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => res.render("pages/index"));
 app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
+app.get("/account", (req, res) => res.render("pages/account"));
 app.get('/matchen', form)
 app.get('/logout', logout);
 app.post('/matchen', matchen)   
 app.post('/profielen', deleteFromDatabase)
-app.post('/profielen', updateDb)
+app.post('/account', updateDb)
 
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
 
@@ -100,12 +101,21 @@ async function updateDb(tags){
 		await client.connect();
 
 		const db = client.db('db01');
-		const updateTags = await db.collection('tags').updateOne({
-            sporten: req.body.sporten
-        })  
-            res.render('pages/profielen')  
-            console.log('updateeeeee', updateTags)   
-   
+		const updateTags = await db.collection('tags').updateOne(
+            { "_id": req.body._id}, // Filter
+            {$set: {"aantal": req.body.aantal}}, 
+            {$set: {"sporten": req.body.sporten}},// Update
+            {upsert: true} // add document with req.body._id if not exists 
+
+       )
+      .then((obj) => {
+         console.log('Updated - ' + obj);
+        res.redirect('orders')
+   })
+    .catch((err) => {
+    console.log('Error: ' + err);
+}) 
+
     } catch (e) {
         console.error(e);
     } finally {
@@ -174,6 +184,7 @@ async function matchen(req, res) {
     tagsArray.push(req.body.sporten)
     req.session.data = {sporten: data}
     const { sporten } = req.session.data
+
     
     res.render('pages/profielen', {
         data: data,

@@ -104,11 +104,12 @@ async function updateDb(tags){
 
     try {
 		await client.connect();
-console.log(req.body.sporten)
+        console.log(req.body.sporten)
+        const tags = await callDbTags(req.body.sporten)
+        tagsArray.push(req.body.sporten)
 		const db = client.db('db01');
 		const updateTags = await db.collection('tags').updateOne(
-            { "_id": req.body._id}, // Filter
-            {$set: {"aantal": req.body.aantal}}, 
+            { "sporten": req.body.sporten}, // Filter
             {$set: {"sporten": req.body.sporten}},// Update
             {upsert: true} // add document with req.body._id if not exists 
        )

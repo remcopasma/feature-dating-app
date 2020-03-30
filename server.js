@@ -31,7 +31,7 @@ app.get('/matchen', form)
 app.get('/logout', logout);
 app.post('/matchen', matchen)   
 app.post('/profielen', deleteFromDatabase)
-app.post('/profielen', updateDb)
+app.post('/account', updateDb)
 
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
 
@@ -99,7 +99,7 @@ async function writeDb(data){
     }
 }
 
-async function updateDb(tags){
+async function updateDb(req, res){
     const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
     try {
@@ -111,8 +111,9 @@ async function updateDb(tags){
 		const updateTags = await db.collection('tags').updateOne(
             { "sporten": req.body.sporten}, // Filter
             {$set: {"sporten": req.body.sporten}},// Update
-            {upsert: true} // add document with req.body._id if not exists 
+            {upsert: true} 
        )
+    
       .then((obj) => {
          console.log('Updated - ' + obj);
         res.redirect('orders')

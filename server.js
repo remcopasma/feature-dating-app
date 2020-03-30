@@ -22,6 +22,8 @@ app.get("/", (req, res) => res.render("pages/index"));
 app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
 app.get("/account", (req, res) => res.render("pages/account"));
+app.get("/update", (req, res) => res.render("pages/update"));
+app.get("/delete", (req, res) => res.render("pages/delete"));
 app.get('/matchen', form)
 app.get('/logout', logout);
 app.post('/matchen', matchen)   

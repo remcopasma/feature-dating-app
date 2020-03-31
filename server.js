@@ -3,7 +3,7 @@ const app = express();
 const dotenv = require('dotenv').config()
 const bodyParser = require('body-parser')
 const session = require('express-session')
-const {MongoClient} = require('mongodb');
+const {MongoClient, ObjectId} = require('mongodb');
 const helmet =require('helmet');
 const uri = process.env.MONGO_URI
 const tagsArray = []
@@ -104,20 +104,20 @@ async function updateDb(req, res){
 
     try {
 		await client.connect();
+        console.log('post/ updateDb')
         console.log(req.body.sporten)
-        const tags = await callDbTags(req.body.sporten)
+        // const tags = await callDbTags(req.body.sporten)
         tagsArray.push(req.body.sporten)
-		const db = client.db('db01');
-		const updateTags = await db.collection('tags').updateOne(
-            { "sporten": req.body.sporten}, // Filter
-            {$set: {"sporten": req.body.sporten}},// Update
-            {upsert: true} 
-       )
-    
+        const sporten = req.body.sporten
+        const db = client.db('db01');
+        
+        await db.collection('personen').find({ _id: ObjectId('5e6a11631c9d4400009e1506') })
+		const updateTags = await db.collection('personen').updateOne({"_id":ObjectId('5e6a11631c9d4400009e1506')},  {$set: { "sporten" : req.body.sporten } })
       .then((obj) => {
-         console.log('Updated - ' + obj);
-        res.redirect('orders')
+         console.log('Updated - ')
+        res.redirect('account')
    })
+    
     .catch((err) => {
     console.log('Error: ' + err);
 }) 

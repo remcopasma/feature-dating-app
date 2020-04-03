@@ -111,8 +111,8 @@ async function updateDb(req, res){
         const sporten = req.body.sporten
         const db = client.db('db01');
         
-        await db.collection('personen').find({ _id: ObjectId('5e6a11631c9d4400009e1506') })
-		const updateTags = await db.collection('personen').updateOne({"_id":ObjectId('5e6a11631c9d4400009e1506')},  {$set: { "sporten" : req.body.sporten } })
+        await db.collection('personen').find({ _id: ObjectId('5e831ecbaab60438846a2115') })
+		const updateTags = await db.collection('personen').updateOne({"_id":ObjectId('5e831ecbaab60438846a2115')},  {$set: { "sporten" : req.body.sporten } })
       .then((obj) => {
          console.log('Updated - ')
         res.redirect('account')

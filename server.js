@@ -112,7 +112,7 @@ async function updateDb(req, res){
         const db = client.db('db01');
         req.session._id = '5e831ecbaab60438846a2115'
         await db.collection('personen').find({ _id: req.session._id })
-		const updateTags = await db.collection('personen').updateOne({"_id":req.session._id},  {$set: { "sporten" : req.body.sporten } })
+		const updateTags = await db.collection('personen').updateOne({"_id":ObjectId(req.session._id)},  {$set: { "sporten" : req.body.sporten } })
       .then((obj) => {
          console.log('Updated - ')
         res.redirect('account')

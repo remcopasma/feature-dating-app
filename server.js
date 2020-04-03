@@ -32,10 +32,6 @@ app.get('/logout', logout);
 app.post('/matchen', matchen)   
 app.post('/profielen', deleteFromDatabase)
 app.post('/account', updateDb)
-app.post('/account', function(req, res){
-req.session.sporten = req.body.sporten
-
-})
 
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
 
@@ -114,9 +110,9 @@ async function updateDb(req, res){
         tagsArray.push(req.body.sporten)
         const sporten = req.body.sporten
         const db = client.db('db01');
-        
-        await db.collection('personen').find({ _id: ObjectId('5e831ecbaab60438846a2115') })
-		const updateTags = await db.collection('personen').updateOne({"_id":ObjectId('5e831ecbaab60438846a2115')},  {$set: { "sporten" : req.body.sporten } })
+        req.session._id = '5e831ecbaab60438846a2115'
+        await db.collection('personen').find({ _id: req.session._id })
+		const updateTags = await db.collection('personen').updateOne({"_id":req.session._id},  {$set: { "sporten" : req.body.sporten } })
       .then((obj) => {
          console.log('Updated - ')
         res.redirect('account')
@@ -195,8 +191,8 @@ async function matchen(req, res) {
 
     const tags = await callDbTags(req.body.sporten)
     tagsArray.push(req.body.sporten)
-    req.body.data = {sporten: data}
-    const { sporten } = req.body.data
+    req.session.data = {sporten: data}
+    const { sporten } = req.session.data
     res.render('pages/profielen', {
         data: data,
         sporten: sporten,

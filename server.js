@@ -21,7 +21,14 @@ app.set("view engine", "ejs");
 app.get("/", (req, res) => res.render("pages/index"));
 app.get("/matchen", (req, res) => res.render("pages/matchen"));
 app.get("/profielen", (req, res) => res.render("pages/profielen"));
-app.get("/account", (req, res) => res.render("pages/account"));
+app.get("/account", (req, res) => {
+    if(req.session._id) {
+        res.render("pages/account");
+    }
+    else{
+        res.render("/")
+    }
+}) 
 app.get("/update", (req, res) => {
     console.log(tagsArray)
     res.render("pages/update", {sporten:tagsArray})}

@@ -32,6 +32,10 @@ app.get('/logout', logout);
 app.post('/matchen', matchen)   
 app.post('/profielen', deleteFromDatabase)
 app.post('/account', updateDb)
+app.post('/account', function(req, res){
+req.session.sporten = req.body.sporten
+
+})
 
 async function callDatabase(vanWaarWilIkHetHebben, watIkWilHebben){
 
@@ -191,8 +195,8 @@ async function matchen(req, res) {
 
     const tags = await callDbTags(req.body.sporten)
     tagsArray.push(req.body.sporten)
-    req.session.data = {sporten: data}
-    const { sporten } = req.session.data
+    req.body.data = {sporten: data}
+    const { sporten } = req.body.data
     res.render('pages/profielen', {
         data: data,
         sporten: sporten,

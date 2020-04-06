@@ -54,6 +54,11 @@ main {
   margin-top: 140px;
 }
 
+main a{
+  color:#fff;
+  padding-left:20px;
+}
+
 main.inloggen {
   height: 40vh;
   display: flex;

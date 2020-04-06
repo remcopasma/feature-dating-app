@@ -9,8 +9,9 @@
     </header>
     <main>
       <h1 class="profile"> Jouw potentiële matches op basis van de tags:</h1>
-	<section>
-		
+	<a href="/update">Update tags</a>
+    <a href="/delete">Delete tags</a>
+    <section>
         <% for(var i=0; i < data.length; i++) { %>
         <article>
             <a href="#">
@@ -24,10 +25,6 @@
         </article>
 		<% } %> 
 	</section>
-
-	
-        <a href="/update">update</a>
-        <a href="/delete">delete</a>
     </main>
 </body>
 </html>

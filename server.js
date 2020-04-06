@@ -198,8 +198,8 @@ async function matchen(req, res) {
 
     const tags = await callDbTags(req.body.sporten)
     tagsArray.push(req.body.sporten)
-    req.session.data = {sporten: data}
-    const { sporten } = req.session.data
+    req.body.data = {sporten: data}
+    const { sporten } = req.body.data
     res.render('pages/profielen', {
         data: data,
         sporten: sporten,

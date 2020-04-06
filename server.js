@@ -30,7 +30,6 @@ app.get("/account", (req, res) => {
     }
 }) 
 app.get("/update", (req, res) => {
-    console.log(tagsArray)
     res.render("pages/update", {sporten:tagsArray})}
     )
 app.get("/delete", (req, res) => res.render("pages/delete", {tagsArray}));
@@ -111,22 +110,16 @@ async function updateDb(req, res){
 
     try {
 		await client.connect();
-        console.log('post/ updateDb')
-        console.log(req.body.sporten)
-        // const tags = await callDbTags(req.body.sporten)
         tagsArray.push(req.body.sporten)
-        const sporten = req.body.sporten
+
         const db = client.db('db01');
         req.session._id = '5e831ecbaab60438846a2115'
         await db.collection('personen').find({ _id: req.session._id })
 		const updateTags = await db.collection('personen').updateOne({"_id":ObjectId(req.session._id)},  {$set: { "sporten" : req.body.sporten } })
       .then((obj) => {
-         console.log('Updated - ')
         res.redirect('account')
    })
-    
     .catch((err) => {
-    console.log('Error: ' + err);
 }) 
 
     } catch (e) {
